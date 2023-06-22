@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: docker
-        image: megha
+        image: us-east1-docker.pkg.dev/lofty-equinox-385805/jenkins/megha:latest
