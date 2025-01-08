@@ -7,10 +7,10 @@
             GCP_REGION = "asia-south1"
             GCP_ARTIFACT_REGISTRY = "asia-south1-docker.pkg.dev/gamerjiautomations/sample-jenkins-test"
 
-            PM1_EMAIL = 'megha.shar@gmail.com'
-            PM2_EMAIL = 'megha.sharma@gmail.com'
+            PM1_EMAIL = 'megha.sharma@thecloudside.com'
+            PM2_EMAIL = 'harshit.khandelwal@thecloudside.com'
 
-            ADMIN_EMAIL = 'sharma@gmail.com'
+            ADMIN_EMAIL = 'meghasharma282001@gmail.com'
 
             JOB_URL = "${env.JENKINS_URL}job/${env.JOB_NAME}/"
             PM1_USER = 'nisarg'
