@@ -9,7 +9,6 @@
             APPROVER_EMAIL = 'megha.sharma@thecloudside.com'
 
             PM1_EMAIL = 'megha.sharma@thecloudside.com'
-            PM2_EMAIL = 'megha.sharma@thecloudside.com'
 
             ADMIN_EMAIL = 'megha.sharma@thecloudside.com'
 
@@ -54,19 +53,7 @@
                 }
                 steps {
                     script {
-                        sendApprovalRequest('First Approval', PM1_EMAIL, PM1_USER, 'additionalMessage1', 'ADDITIONAL_MESSAGE_1')
-                    }
-                }
-            }
-
-            stage('Second Approval') {
-                when {
-                    expression { params.deploy.toString() == "prod" }
-                }
-                steps {
-                    script {
-                        def firstApprovalMessage = "<li><strong>First Approval:</strong><br>${env.ADDITIONAL_MESSAGE_1}</li>"
-                        sendApprovalRequest('Second Approval', PM2_EMAIL, PM2_USER, 'additionalMessage2', 'ADDITIONAL_MESSAGE_2', firstApprovalMessage)
+                        sendApprovalRequest('First Approval', PM1_EMAIL, 'additionalMessage1', 'ADDITIONAL_MESSAGE_1')
                     }
                 }
             }
@@ -79,7 +66,6 @@
                     script {
                         def previousMessages = """
                             <li><strong>First Approval:</strong><br>${env.ADDITIONAL_MESSAGE_1}</li>
-                            <li><strong>Second Approval:</strong><br>${env.ADDITIONAL_MESSAGE_2}</li>
                         """
                         sendApprovalRequest('Final Approval', ADMIN_EMAIL, ADMIN_USER, 'additionalMessageFinal', 'ADDITIONAL_MESSAGE_FINAL', previousMessages)
 
@@ -94,7 +80,6 @@
                                         <h3>Approval Messages:</h3>
                                         <ul>
                                             <li><strong>First Approval:</strong><br>${env.ADDITIONAL_MESSAGE_1}</li>
-                                            <li><strong>Second Approval:</strong><br>${env.ADDITIONAL_MESSAGE_2}</li>
                                             <li><strong>Final Approval:</strong><br>${env.ADDITIONAL_MESSAGE_FINAL}</li>
                                         </ul>
                                         <h3>Jenkins UI:</h3>
