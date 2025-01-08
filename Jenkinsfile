@@ -1,9 +1,11 @@
-pipeline {
+    pipeline {
         agent any
         environment {
             COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-            GCR_DOCKER_TAG = "v${env.BUILD_NUMBER}.0.0"
+            DOCKER_TAG = "latest"
+            REPO_NAME = "docker-build"
             GCP_REGION = "asia-south1"
+            GCP_ARTIFACT_REGISTRY = "asia-south1-docker.pkg.dev/gamerjiautomations/sample-jenkins-test"
 
             PM1_EMAIL = 'megha.shar@gmail.com'
             PM2_EMAIL = 'megha.sharma@gmail.com'
@@ -112,8 +114,8 @@ pipeline {
                         if (params.deploy.toString() == "prod") {
                             input message: "Deploy to production?", ok: "Deploy"
                         }
-                        echo "docker build -t ${env.JOB_NAME}:${"https://github.com/aishwaryar-cloudside/jenkins-test/"}-v${env.BUILD_NUMBER}.0.0 ."
-                        sh "docker build -t gcr.io/${G}/${REPO_NAME}:${GCR_DOCKER_TAG} ."
+                        echo "docker build -t ${env.JOB_NAME}:${env.REPO_NAME}-v${env.BUILD_NUMBER}.0.0 ."
+                        sh "docker build -t gcr.io/${G}/${REPO_NAME}:${DOCKER_TAG} ."
                     }
                 }
             }
@@ -123,13 +125,14 @@ pipeline {
                     script {
                         sh "docker image ls"
                         sh "gcloud auth configure-docker"
-                        sh "docker push gcr.io/${G}/${REPO_NAME}:${GCR_DOCKER_TAG}"
+                        sh "docker push gcr.io/${G}/${REPO_NAME}:${DOCKER_TAG}"
                         }
                     }
                 }
             }
         }
     }
+
 
 def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, additionalMessageEnvVar, previousMessages = '') {
     emailext (
