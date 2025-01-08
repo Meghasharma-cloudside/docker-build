@@ -13,10 +13,10 @@
             ADMIN_EMAIL = 'megha.sharma@thecloudside.com'
 
             JOB_URL = "${env.JENKINS_URL}job/${env.JOB_NAME}/"
-            PM1_USER = 'nisarg'
-            PM2_USER = 'reena'
+            PM1_USER = 'Harshit'
+            PM2_USER = 'aish'
 
-            ADMIN_USER = 'valay'
+            ADMIN_USER = 'megha'
         }
         stages {
             stage('prepare') {
@@ -67,7 +67,7 @@
                         def previousMessages = """
                             <li><strong>First Approval:</strong><br>${env.ADDITIONAL_MESSAGE_1}</li>
                         """
-                        sendApprovalRequest('Final Approval', ADMIN_EMAIL, ADMIN_USER, 'additionalMessageFinal', 'ADDITIONAL_MESSAGE_FINAL', previousMessages)
+                        sendApprovalRequest('Final Approval', env.ADMIN_EMAIL, env.ADMIN_USER, 'additionalMessageFinal', 'ADDITIONAL_MESSAGE_FINAL', previousMessages)
 
                         echo "Manager approved: ${env.ADDITIONAL_MESSAGE_FINAL}"
                         emailext (
