@@ -6,6 +6,7 @@
             REPO_NAME = "docker-build"
             GCP_REGION = "asia-south1"
             GCP_ARTIFACT_REGISTRY = "asia-south1-docker.pkg.dev/gamerjiautomations/sample-jenkins-test"
+            approverEmail = "megha.sharma@thecloudside.com"
 
             PM1_EMAIL = 'megha.sharma@thecloudside.com'
             PM2_EMAIL = 'megha.sharma@thecloudside.com'
