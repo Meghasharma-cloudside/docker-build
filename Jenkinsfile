@@ -48,9 +48,6 @@
             }
 
             stage('First Approval') {
-                when {
-                    expression { params.deploy.toString() == "prod" }
-                }
                 steps {
                     script {
                         sendApprovalRequest('First Approval', PM1_EMAIL, 'additionalMessage1', 'ADDITIONAL_MESSAGE_1')
@@ -59,9 +56,6 @@
             }
 
             stage('Final Approval') {
-                when {
-                    expression { params.deploy.toString() == "prod" }
-                }
                 steps {
                     script {
                         def previousMessages = """
