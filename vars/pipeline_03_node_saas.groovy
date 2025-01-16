@@ -152,38 +152,39 @@ def call(Map params) {
             }
         }
     }
+}
 
-    def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, additionalMessageEnvVar, previousMessages = '') {
-        emailext(
-            subject: "Approval Request - ${stageName}",
-            body: """
-                <html>
-                    <body style="font-family: Arial, sans-serif; line-height: 1.6;">
-                        <h2>Approval Request - ${stageName}</h2>
-                        <h3>Approval Messages:</h3>
-                        <ul>
-                            ${previousMessages}
-                        </ul>
-                        <p>${stageName} is required. Please review the changes and approve the job by clicking the link below:</p>
-                        <p><a href="${JOB_URL}${BUILD_NUMBER}/input/" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Approve Job</a></p>
-                    </body>
-                </html>
-            """,
-            mimeType: 'text/html',
-            to: approverEmail
-        )
+// Define methods outside the pipeline block
+def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, additionalMessageEnvVar, previousMessages = '') {
+    emailext(
+        subject: "Approval Request - ${stageName}",
+        body: """
+            <html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.6;">
+                    <h2>Approval Request - ${stageName}</h2>
+                    <h3>Approval Messages:</h3>
+                    <ul>
+                        ${previousMessages}
+                    </ul>
+                    <p>${stageName} is required. Please review the changes and approve the job by clicking the link below:</p>
+                    <p><a href="${JOB_URL}${BUILD_NUMBER}/input/" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Approve Job</a></p>
+                </body>
+            </html>
+        """,
+        mimeType: 'text/html',
+        to: approverEmail
+    )
 
-        def approval = input message: "${stageName}", parameters: [
-            text(defaultValue: '', description: "Additional Message from ${stageName}", name: messageName)
-        ], submitter: approverUser
+    def approval = input message: "${stageName}", parameters: [
+        text(defaultValue: '', description: "Additional Message from ${stageName}", name: messageName)
+    ], submitter: approverUser
 
-        env[additionalMessageEnvVar] = approval
-    }
+    env[additionalMessageEnvVar] = approval
+}
 
-    def setEnvironmentVariables(Map params) {
-        env.WORKSPACE = params.account
-        env.REPO_NAME = params.name
-        env.G = params.gcpProjectId
-        env.SERVICE_NAME = params.name
-    }
+def setEnvironmentVariables(Map params) {
+    env.WORKSPACE = params.account
+    env.REPO_NAME = params.name
+    env.G = params.gcpProjectId
+    env.SERVICE_NAME = params.name
 }
