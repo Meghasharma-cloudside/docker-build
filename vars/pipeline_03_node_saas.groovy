@@ -15,9 +15,9 @@ def call(Map params) {
             ADMIN_EMAIL = 'harshit.khandelwal@thecloudside.com'
 
             JOB_URL = "${env.JENKINS_URL}job/${env.JOB_NAME}/"
-            PM1_USER = 'nisarg'
-            PM2_USER = 'reena'
-            ADMIN_USER = 'valay'
+            PM1_USER = 'Megha'
+            PM2_USER = 'Meg'
+            ADMIN_USER = 'Khoondelwal'
         }
         stages {
             stage('prepare') {
