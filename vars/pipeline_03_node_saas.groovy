@@ -1,4 +1,5 @@
-pipeline {
+def call(Map params) {
+    pipeline {
     agent any
     environment {
         COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
@@ -18,7 +19,7 @@ pipeline {
         PM2_USER = 'reena'
         ADMIN_USER = 'valay'
     }
-    stages {
+      stages {
         stage('prepare') {
             steps {
                 script {
@@ -149,10 +150,10 @@ pipeline {
                 }
             }
         }
-    }
-}
+      }
+ }
 
-def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, additionalMessageEnvVar, previousMessages = '') {
+  def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, additionalMessageEnvVar, previousMessages = '') {
     emailext(
         subject: "Approval Request - ${stageName}",
         body: """
@@ -177,11 +178,12 @@ def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, add
     ], submitter: approverUser
 
     env[additionalMessageEnvVar] = approval
-}
+  }
 
-def setEnvironmentVariables(Map params) {
+  def setEnvironmentVariables(Map params) {
     env.WORKSPACE = params.account
     env.REPO_NAME = params.name
     env.G = params.gcpProjectId
     env.SERVICE_NAME = params.name
+  }
 }
