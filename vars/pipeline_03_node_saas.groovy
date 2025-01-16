@@ -134,7 +134,6 @@
                     }
                 }
             }
-        }
 
 
     def sendApprovalRequest(stageName, approverEmail, approverUser, messageName, additionalMessageEnvVar, previousMessages = '') {
