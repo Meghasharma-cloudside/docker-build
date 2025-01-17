@@ -4,6 +4,7 @@ def call(Map params) {
         environment {
             COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
             DOCKER_TAG = "latest"
+            G = "powerplay-446306"
             REPO_NAME = "docker-build"
             GCP_REGION = "asia-south1"
             GCP_ARTIFACT_REGISTRY = "asia-south1-docker.pkg.dev"
