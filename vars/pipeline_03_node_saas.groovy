@@ -11,13 +11,13 @@ def call(Map params) {
             ENVIRONMENT = params.deploy.toString()
 
             PM1_EMAIL = 'megha.sharma@thecloudside.com'
-            PM2_EMAIL = 'meghasharma282001@gmail.com'
-            ADMIN_EMAIL = 'harshit.khandelwal@thecloudside.com'
+            PM2_EMAIL = 'megha.sharma@thecloudside.com'
+            ADMIN_EMAIL = 'megha.sharma@thecloudside.com'
 
             JOB_URL = "${env.JENKINS_URL}job/${env.JOB_NAME}/"
             PM1_USER = 'Megha'
             PM2_USER = 'Meg'
-            ADMIN_USER = 'Khoondelwal'
+            ADMIN_USER = 'Admin'
         }
         stages {
             stage('prepare') {
